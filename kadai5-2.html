@@ -13,6 +13,17 @@
     <div id="result"></div>
     <script>
         async function some_api(myForm) {
+            const endpoint = "https://api.thecatapi.com/v1/images/search?limit=";
+            const apiKey = "live_prz81kak62WX719JvDEkLzdQgav0nN1viNd0bCFNncvhcS7VwSqexzkO0rd1CyL8";
+            const aRes = await fetch(endpoint+myForm.form_data.value,{
+                headers: {"x-api-key": apiKey}
+            });
+            const data = await aRes.json();
+            const imgsHtml = data.map(cat =>
+                `<img src="${cat.url}" alt="猫画像" style="max-width:300px; margin:5px;">`
+            ).join("");
+
+            document.getElementById("result").innerHTML = imgsHtml+"<br />";
             // ここにコードを書く
             document.getElementById("result").innerHTML += myForm.form_data.value+"<br />";
             document.apiform.reset();
